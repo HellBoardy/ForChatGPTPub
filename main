@@ -8,18 +8,20 @@ class ScheduleGUI(tk.Tk):
         self.geometry("400x400")
         self.resizable(False, False)
         self.configure(bg='#6a9c6d')
-        self.add_buttons()
-
-    def add_buttons(self):
-        self.add_button = tk.Button(self.frame, text="Add Task")
-        self.remove_button = tk.Button(self.frame, text="Remove Task")
-        self.edit_button = tk.Button(self.frame, text="Edit Task")
-        self.view_button = tk.Button(self.frame, text="View Task")
-        self.quit_button = tk.Button(self.frame, text="Quit")
+        self.create_widgets()
 
     def create_widgets(self):
-        self.label = tk.Label(self.master, text="Hello, World!")
-        self.label.pack()
+        self.frame = tk.Frame(self.master)
+        self.frame.pack()
+
+        self.add_button = tk.Button(self.frame, text="Add Task")
+        self.add_button.pack(side=tk.LEFT)
+
+        self.del_button = tk.Button(self.frame, text="Delete Task")
+        self.del_button.pack(side=tk.LEFT)
+
+        self.quit_button = tk.Button(self.frame, text="Quit", command=self.master.quit)
+        self.quit_button.pack(side=tk.LEFT)
 
 app = ScheduleGUI()
 app.mainloop()
