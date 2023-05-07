@@ -1,5 +1,5 @@
 # import tkinter as tk
-
+import os
 from tkinter import *
 from tkinter import messagebox
 
@@ -7,9 +7,13 @@ class ScheduleGUI:
     def __init__(self, master):
         self.master = master
         self.root = Tk()
-        self.master.geometry("400x400")
-        self.master.title("Schedule")
-        self.tasks = []
+        master.geometry("400x400")
+        # master.resizable(False, False)
+        master.title("Schedule")
+
+        self.tasks_file = 'tasks.txt'
+
+        # self.tasks = []
         # self.frame = tk.Frame(self.root)
         # self.frame.pack(expand=True)
         self.frame = Frame(master)
@@ -20,6 +24,7 @@ class ScheduleGUI:
         self.add_buttons()
         self.add_entry()
         self.add_listbox()
+        self.load_tasks()
 
     def add_buttons(self):
         self.add_button = Button(self.frame, text="Добавить задачу", command=self.add_task)
@@ -32,7 +37,7 @@ class ScheduleGUI:
         # кнопка для удаления задачи
         self.delete_button = Button(self.frame, text='Удалить', command=self.delete_task)
         # self.delete_button.pack(side="left")
-        self.delete_button.grid(row=3, column=1)
+        self.delete_button.grid(row=3, column=0)
 
     def delete_task(self):
         # получаем индекс выбранной задачи
@@ -41,6 +46,7 @@ class ScheduleGUI:
             index = selection[0]
             # удаляем задачу из listbox
             self.task_listbox.delete(index)
+            self.save_tasks()
 
     def add_entry(self):
         # метка и поле ввода для задачи
@@ -68,6 +74,21 @@ class ScheduleGUI:
             return
         self.task_listbox.insert(END, task)
         self.entry.delete(0, END)
+        self.save_tasks()
+
+    def save_tasks(self):
+        with open(self.tasks_file, 'w') as f:
+            tasks = self.task_listbox.get(0, END)
+            for task in tasks:
+                f.write(task + '\n')
+
+    def load_tasks(self):
+        if os.path.exists(self.tasks_file):
+            with open(self.tasks_file, 'r') as f:
+                tasks = f.readlines()
+                tasks = [task.strip() for task in tasks]
+                for task in tasks:
+                    self.task_listbox.insert(END, task)
 
 root = Tk()
 app = ScheduleGUI(root)
