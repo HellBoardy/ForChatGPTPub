@@ -18,3 +18,8 @@ class ScheduleGUI:
         self.master.resizable(False, False)
         self.create_widgets()
         self.add_buttons()
+
+import tkinter as tk
+
+app = ScheduleGUI()
+app.mainloop()
