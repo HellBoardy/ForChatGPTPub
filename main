@@ -16,7 +16,7 @@ class ScheduleGUI:
         self.frame = tk.Frame(self.master)
         self.frame.pack()
 
-        self.add_button = tk.Button(self.frame, text="Add Task")
+        self.add_button = tk.Button(self.frame, text="Create Task")
         self.add_button.pack()
 
 app = ScheduleGUI()
