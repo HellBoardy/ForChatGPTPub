@@ -29,8 +29,8 @@ class ScheduleGUI:
         self.root.mainloop()
 
     def add_listbox(self): #создаст Listbox виджет и разместит его на главном фрейме.
-        self.listbox = tk.Listbox(self.frame)
-        self.listbox.pack(side="bottom", padx=5, pady=5, fill="both", expand=True)
+        self.task_listbox = tk.Listbox(self.frame)
+        self.task_listbox.pack(side="bottom", padx=5, pady=5, fill="both", expand=True)
 
     def add_task(self): #Здесь мы получаем текст, введенный в поле ввода, сохраняем его в переменной task, добавляем этот текст в конец Listbox с помощью метода insert() и затем очищаем поле ввода с помощью метода delete().
         task = self.entry.get()
