@@ -11,13 +11,13 @@ class ScheduleGUI:
         self.quit_button = tk.Button(self.frame, text="Quit")
 
     def __init__(self, master=None):
-        tk.Tk.__init__(self, master)
+        super().__init__()
         self.master = master
         self.master.title("Schedule Manager")
-        self.master.geometry("800x600")
-        self.master.resizable(False, False)
-        self.create_widgets()
+        self.frame = tk.Frame(self.master)
+        self.frame.pack()
         self.add_buttons()
 
 app = ScheduleGUI()
 app.mainloop()
+self.master.mainloop()
