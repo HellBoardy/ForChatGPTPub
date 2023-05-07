@@ -20,6 +20,17 @@ class ScheduleGUI:
         self.add_button.pack(side="left")
         self.quit_button = tk.Button(self.frame, text="Выход", command=self.root.quit)
         self.quit_button.pack(side="right")
+        # кнопка для удаления задачи
+        self.delete_button = Button(self.frame, text='Удалить', command=self.delete_task)
+        self.delete_button.pack(side="left")
+
+    def delete_task(self):
+        # получаем индекс выбранной задачи
+        selection = self.task_listbox.curselection()
+        if selection:
+            index = selection[0]
+            # удаляем задачу из listbox
+            self.task_listbox.delete(index)
 
     def add_entry(self):
         self.entry_label = tk.Label(self.frame, text="Сук")
