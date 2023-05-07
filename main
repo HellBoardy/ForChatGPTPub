@@ -1,28 +1,38 @@
-import tkinter as tk
+# import tkinter as tk
 
 from tkinter import *
 from tkinter import messagebox
 
 class ScheduleGUI:
-    def __init__(self):
-        self.root = tk.Tk()
-        self.root.geometry("400x400")
-        self.root.title("Schedule")
+    def __init__(self, master):
+        self.master = master
+        self.root = Tk()
+        self.master.geometry("400x400")
+        self.master.title("Schedule")
         self.tasks = []
-        self.frame = tk.Frame(self.root)
-        self.frame.pack(expand=True)
+        # self.frame = tk.Frame(self.root)
+        # self.frame.pack(expand=True)
+        self.frame = Frame(master)
+        self.frame.grid(column=0, row=0, sticky=(N, W, E, S))
+        self.frame.columnconfigure(0, weight=1)
+        self.frame.rowconfigure(0, weight=1)
+
         self.add_buttons()
         self.add_entry()
         self.add_listbox()
 
     def add_buttons(self):
-        self.add_button = tk.Button(self.frame, text="Добавить задачу", command=self.add_task)
-        self.add_button.pack(side="left")
-        self.quit_button = tk.Button(self.frame, text="Выход", command=self.root.quit)
-        self.quit_button.pack(side="right")
+        self.add_button = Button(self.frame, text="Добавить задачу", command=self.add_task)
+        # self.add_button.pack(side="left")
+        self.add_button.grid(row=1, column=1)
+
+        self.quit_button = Button(self.frame, text="Выход", command=self.root.quit)
+        # self.quit_button.pack(side="right")
+        self.quit_button.grid(row=3, column=1)
         # кнопка для удаления задачи
         self.delete_button = Button(self.frame, text='Удалить', command=self.delete_task)
-        self.delete_button.pack(side="left")
+        # self.delete_button.pack(side="left")
+        self.delete_button.grid(row=3, column=1)
 
     def delete_task(self):
         # получаем индекс выбранной задачи
@@ -33,18 +43,23 @@ class ScheduleGUI:
             self.task_listbox.delete(index)
 
     def add_entry(self):
-        self.entry_label = tk.Label(self.frame, text="Сук")
-        self.entry_label.pack()
+        # метка и поле ввода для задачи
+        self.entry_label = Label(self.frame, text="Задачи:")
+        # self.entry_label.pack()
+        self.entry_label.grid(row=0,column=0,sticky=W)
 
-        self.entry = tk.Entry(self.root)
-        self.entry.pack(side="top", padx=5, pady=5)
+        self.entry = Entry(self.frame)
+        # self.entry.pack(side="top", padx=5, pady=5)
+        self.entry.grid(row=1, column=0, sticky=W)
 
     def run(self):
         self.root.mainloop()
 
     def add_listbox(self): #создаст Listbox виджет и разместит его на главном фрейме.
-        self.task_listbox = tk.Listbox(self.frame)
-        self.task_listbox.pack(side="bottom", padx=5, pady=5, fill="both", expand=True)
+        self.task_listbox = Listbox(self.frame)
+        self.task_listbox.grid(row=2, column=0, columnspan=2, sticky=(N, S, W, E))
+        self.task_listbox.config(border=2, relief='sunken')
+        # self.task_listbox.pack(side="bottom", padx=5, pady=5, fill="both", expand=True)
 
     def add_task(self): #Здесь мы получаем текст, введенный в поле ввода, сохраняем его в переменной task, добавляем этот текст в конец Listbox с помощью метода insert() и затем очищаем поле ввода с помощью метода delete().
         task = self.entry.get()
@@ -54,5 +69,6 @@ class ScheduleGUI:
         self.task_listbox.insert(END, task)
         self.entry.delete(0, END)
 
-app = ScheduleGUI()
+root = Tk()
+app = ScheduleGUI(root)
 app.run()
