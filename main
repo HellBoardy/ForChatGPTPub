@@ -9,15 +9,23 @@ class ScheduleGUI:
         self.master = tk.Tk()
         self.master.geometry("400x400")
         self.master.title("Schedule Manager")
+
         self.add_buttons()
+
+        self.task_entry = None
+
         self.master.mainloop()
 
     def add_buttons(self):
         self.frame = tk.Frame(self.master)
         self.frame.pack()
 
-        self.add_button = tk.Button(self.frame, text="Create Task")
+        self.add_button = tk.Button(self.frame, text="Create Task", command=self.add_entry)
         self.add_button.pack()
+
+    def add_entry(self):
+        self.task_entry = tk.Entry(self.frame)
+        self.task_entry.pack()
 
 app = ScheduleGUI()
 app.mainloop()
