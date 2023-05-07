@@ -9,9 +9,10 @@ class ScheduleGUI:
         self.frame.pack(expand=True)
         self.add_buttons()
         self.add_task_entry()
+        self.add_listbox()
 
     def add_buttons(self):
-        self.add_button = tk.Button(self.frame, text="Добавить задачу", command=self.add_task_entry)
+        self.add_button = tk.Button(self.frame, text="Добавить задачу", command=self.add_task)
         self.add_button.pack(side="left")
         self.quit_button = tk.Button(self.frame, text="Выход", command=self.root.quit)
         self.quit_button.pack(side="right")
@@ -22,6 +23,15 @@ class ScheduleGUI:
 
     def run(self):
         self.root.mainloop()
+
+    def add_listbox(self): #создаст Listbox виджет и разместит его на главном фрейме.
+        self.listbox = tk.Listbox(self.frame)
+        self.listbox.pack(side="bottom", padx=5, pady=5, fill="both", expand=True)
+
+    def add_task(self): #Здесь мы получаем текст, введенный в поле ввода, сохраняем его в переменной task, добавляем этот текст в конец Listbox с помощью метода insert() и затем очищаем поле ввода с помощью метода delete().
+        task = self.entry.get()
+        self.listbox.insert("end", task)
+        self.entry.delete(0, "end")
 
 app = ScheduleGUI()
 app.run()
